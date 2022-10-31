@@ -11,6 +11,7 @@ export class EmployeeListComponent implements OnInit {
 
   pageTitle: string = "Employee List";
   empls: Employee[] = [];
+  
   constructor(
     private emplsvc: EmployeeService
   ) { }

@@ -14,6 +14,7 @@ import { EmployeeDetailComponent } from './employee/employee-detail/employee-det
 import { EmployeeCreateComponent } from './employee/employee-create/employee-create.component';
 import { EmployeeChangeComponent } from './employee/employee-change/employee-change.component';
 import { HeadComponent } from './common/head/head.component';
+import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeadComponent } from './common/head/head.component';
     EmployeeDetailComponent,
     EmployeeCreateComponent,
     EmployeeChangeComponent,
-    HeadComponent
+    HeadComponent,
+    EmployeeLoginComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
