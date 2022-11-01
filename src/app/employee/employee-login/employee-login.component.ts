@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SystemService } from 'src/app/common/system.service';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -14,14 +15,17 @@ export class EmployeeLoginComponent implements OnInit {
   message: string = "";
 
   constructor(
+    private sys: SystemService,
     private emplsvc: EmployeeService,
     private router: Router
   ) { }
 
   login(): void {
+    this.sys.employee = null;
     this.emplsvc.login(this.email, this.password).subscribe({
       next: (res) => {
         console.debug("Employee:", res);
+        this.sys.employee = res;
         this.router.navigateByUrl("/empl/list");
       },
       error: (err) => {

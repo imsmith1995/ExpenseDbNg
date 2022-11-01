@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +15,14 @@ import { EmployeeCreateComponent } from './employee/employee-create/employee-cre
 import { EmployeeChangeComponent } from './employee/employee-change/employee-change.component';
 import { HeadComponent } from './common/head/head.component';
 import { EmployeeLoginComponent } from './employee/employee-login/employee-login.component';
+import { BoolDisplayPipe } from './common/bool-display.pipe';
+import { EmployeeSearchPipe } from './employee/employee-search.pipe';
+import { SortPipe } from './common/sort.pipe';
+import { AppInitService } from './app-init.service';
+
+export function startupServiceFactory(appInit: AppInitService) : Function {
+  return () => appInit.getSettings();
+}
 
 @NgModule({
   declarations: [
@@ -28,13 +36,23 @@ import { EmployeeLoginComponent } from './employee/employee-login/employee-login
     EmployeeCreateComponent,
     EmployeeChangeComponent,
     HeadComponent,
-    EmployeeLoginComponent
+    EmployeeLoginComponent,
+    BoolDisplayPipe,
+    EmployeeSearchPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AppInitService, {
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+        deps: [AppInitService],
+        multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
